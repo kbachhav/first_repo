@@ -1,0 +1,160 @@
+Dear Management Team,
+
+As part of the proposed GTS-level RAG initiative, we evaluated two potential repositories for consolidating knowledge across all GTS sub-pods:
+
+1. SharePoint Online – Document Library
+2. Confluence – Pages/Knowledge Base
+
+Considering the nature of our GTS knowledge, RAG requirements, metadata needs, governance, security and future scalability, I recommend using SharePoint Online as the primary System of Record for GTS RAG knowledge.
+
+Why SharePoint Online is the preferred option
+
+Our GTS knowledge is not limited to wiki-style information. It consists of structured SDLC artifacts such as:
+
+- Pre-FSR / requirement documents
+- Video recordings and meeting transcripts
+- FSR
+- FDD
+- User Stories
+- Technical designs and architecture documents
+- Application/project reference documents
+- Approved and superseded versions of documents
+
+For an enterprise RAG solution, the quality of metadata and governance around these artifacts is as important as the document content itself.
+
+SharePoint provides a strong foundation through:
+
+- Structured metadata and custom columns
+- Content types and standardized classification
+- Document versioning
+- Approval and lifecycle management
+- Enterprise access control and permissions
+- Microsoft 365 ecosystem integration
+- Centralized document governance
+- Better support for document-oriented SDLC artifacts
+
+Importance of metadata for RAG
+
+We should avoid relying only on semantic/vector similarity during retrieval.
+
+For example, if a user asks:
+
+"Explain the Trade Confirmation requirement for Application X."
+
+The RAG pipeline should first be able to identify/filter:
+
+- GTS Sub-Pod
+- Application / Project
+- Business Domain
+- SDLC Stage
+- Artifact Type
+- Release
+- Version
+- Approval Status
+- RAG Eligibility
+- Security Classification
+
+It can then perform hybrid retrieval using metadata + keyword search + vector search + reranking.
+
+This will significantly improve retrieval accuracy and reduce the possibility of retrieving obsolete or unrelated information.
+
+Proposed SharePoint structure
+
+We recommend establishing a central:
+
+GTS Knowledge Hub
+
+with a standardized structure:
+
+GTS Knowledge Hub
+→ GTS Sub-Pod
+→ Application / Project
+→ Artifact Type
+
+Example:
+
+GTS Knowledge Hub
+└── Payments
+└── Trade Application
+├── 01_Pre-FSR
+├── 02_FSR
+├── 03_FDD
+├── 04_User-Stories
+├── 05_Video-Transcripts
+├── 06_Technical-Design
+├── 07_Architecture
+└── 08_Reference
+
+The same structure should be adopted consistently across all GTS sub-pods.
+
+Importantly, folders should provide intuitive navigation, while metadata should remain the primary mechanism for RAG classification and retrieval.
+
+Proposed core metadata
+
+We should establish a common GTS metadata taxonomy covering:
+
+- GTS Sub-Pod
+- Application / Project
+- Business Domain
+- SDLC Stage
+- Artifact Type
+- Requirement / User Story ID
+- Release
+- Version
+- Status
+- Approval Status
+- Document Owner
+- Technology
+- Security Classification
+- Effective Date
+- Parent Artifact ID
+- Source Type
+- RAG Eligible
+- RAG Priority
+- Knowledge ID
+
+This will allow the ingestion pipeline to carry enterprise context into the vector database.
+
+Proposed RAG architecture
+
+The target flow would be:
+
+SharePoint
+→ Metadata & Governance
+→ Document/Transcript Extraction
+→ Context-Aware Chunking
+→ Metadata Enrichment
+→ Embedding
+→ Vector + Keyword Retrieval
+→ Metadata Filtering
+→ Reranking
+→ GAIP RAG
+→ Answer with Source/Citation
+
+For video recordings, we should retain the recording in the approved repository while extracting the transcript, timestamps and relevant metadata into the RAG ingestion pipeline.
+
+Role of Confluence
+
+This recommendation does not mean Confluence cannot be used.
+
+Confluence can continue to be valuable for wiki-style knowledge, team collaboration, FAQs, technical notes and continuously evolving knowledge.
+
+However, where the objective is to establish a governed enterprise knowledge foundation for GTS RAG, SharePoint is the preferred primary repository.
+
+Confluence can subsequently be integrated as an additional knowledge source if required.
+
+Recommendation
+
+I recommend that we:
+
+1. Establish SharePoint Online as the primary GTS RAG Knowledge Repository / System of Record.
+2. Define a common GTS metadata taxonomy before onboarding content.
+3. Standardize the library/content structure across all sub-pods.
+4. Establish document lifecycle and RAG eligibility rules.
+5. Build the ingestion pipeline around metadata-aware processing.
+6. Keep the architecture open to Confluence and other enterprise sources in the future.
+
+This approach will provide a more governed, scalable and metadata-driven foundation for the GTS Enterprise RAG initiative and will also enable us to evolve towards more advanced capabilities such as knowledge graphs and SDLC relationship-based retrieval in the future.
+
+Regards,
+Kishor
